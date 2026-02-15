@@ -14,8 +14,11 @@ html, body {
 }
 
 #player {
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 </style>
 </head>
@@ -37,12 +40,15 @@ html, body {
         controls: 0,
         modestbranding: 1,
         rel: 0,
-        fs: 1
+        fs: 0,
+        iv_load_policy: 3,
+        disablekb: 1,
+        playsinline: 1
       },
       events: {
         'onReady': function(event) {
+          event.target.mute(); // helps autoplay work on mobile
           event.target.playVideo();
-          event.target.getIframe().requestFullscreen();
         },
         'onStateChange': function(event) {
           if (event.data === YT.PlayerState.ENDED) {
