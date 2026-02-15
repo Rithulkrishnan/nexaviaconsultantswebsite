@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Video Player</title>
+<title>Full Screen Video</title>
 
 <style>
 html, body {
@@ -13,51 +13,29 @@ html, body {
   overflow: hidden;
 }
 
-#player {
+video {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  object-fit: cover; /* fills screen fully */
 }
 </style>
 </head>
 
 <body>
 
-<div id="player"></div>
-
-<script src="https://www.youtube.com/iframe_api"></script>
+<video autoplay muted playsinline>
+  <source src="intro.mp4" type="video/mp4">
+</video>
 
 <script>
-  var player;
+  const video = document.querySelector("video");
 
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      videoId: 'YJbrYAGEeUg',
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        modestbranding: 1,
-        rel: 0,
-        fs: 0,
-        iv_load_policy: 3,
-        disablekb: 1,
-        playsinline: 1
-      },
-      events: {
-        'onReady': function(event) {
-          event.target.mute(); // helps autoplay work on mobile
-          event.target.playVideo();
-        },
-        'onStateChange': function(event) {
-          if (event.data === YT.PlayerState.ENDED) {
-            window.location.href = "https://sites.google.com/view/nexavia-consultants/home";
-          }
-        }
-      }
-    });
-  }
+  video.onended = function() {
+    window.location.href = "https://sites.google.com/view/nexavia-consultants/home";
+  };
 </script>
 
 </body>
