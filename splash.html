@@ -1,38 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        background: black;
-        height: 100%;
-        overflow: hidden;
-      }
-      iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-      }
-    </style>
+<head>
+<meta charset="UTF-8">
+<title>Video Player</title>
 
-    <script>
-      setTimeout(function () {
-        window.location.href =
-          "https://sites.google.com/view/nexaviatestlink/home";
-      }, 12000);
-    </script>
-  </head>
-  <body>
-    <iframe
-      src="https://drive.google.com/file/d/17aRtfvAO8AC6khv7Uw8rnWOzkOLah0bq/preview?autoplay=1&mute=1&control=0"
-      allow="autoplay; fullscreen"
-    >
-    </iframe>
-  </body>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+#player {
+  width: 100%;
+  height: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="player"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+  var player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      videoId: 'YJbrYAGEeUg',
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        modestbranding: 1,
+        rel: 0,
+        fs: 1
+      },
+      events: {
+        'onReady': function(event) {
+          event.target.playVideo();
+          event.target.getIframe().requestFullscreen();
+        },
+        'onStateChange': function(event) {
+          if (event.data === YT.PlayerState.ENDED) {
+            window.location.href = "https://sites.google.com/view/nexavia-consultants/home";
+          }
+        }
+      }
+    });
+  }
+</script>
+
+</body>
 </html>
